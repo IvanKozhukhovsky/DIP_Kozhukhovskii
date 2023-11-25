@@ -40,21 +40,21 @@ if ~exist(newFolder_Logical, "dir")
 end
 
 % TO DO: Image Processing Toolbox
-% % преобразование в бинарное изображение с порогом 25
-% binary_jpg = mat2gray(gray_jpg, [0 0.25*max(max(gray_jpg))]);
+% преобразование в бинарное изображение с порогом 25
+binary_jpg = mat2gray(gray_jpg, [0 0.25*double(max(max(gray_jpg)))]);
 % imshow(binary_jpg);
 % pause
-% imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_25"));
-% % преобразование в бинарное изображение с порогом 50
-% binary_jpg = mat2gray(gray_jpg, [0 0.50*max(max(gray_jpg))]);
+imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_25.jpg"));
+% преобразование в бинарное изображение с порогом 50
+binary_jpg = mat2gray(gray_jpg, [0 0.50*double(max(max(gray_jpg)))]);
 % imshow(binary_jpg);
 % pause
-% imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_50"));
-% % преобразование в бинарное изображение с порогом 75
-% binary_jpg = mat2gray(gray_jpg, [0 0.75*max(max(gray_jpg))]);
+imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_50.jpg"));
+% преобразование в бинарное изображение с порогом 75
+binary_jpg = mat2gray(gray_jpg, [0 0.75*double(max(max(gray_jpg)))]);
 % imshow(binary_jpg);
 % pause
-% imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_75"));
+imwrite(binary_jpg, fullfile(newFolder_Logical, "binary_jpg_75.jpg"));
 
 % создадим заранее папку для битовых плоскостей 8-битового изображениЯ
 newFolder_BitPlane = pwd + "\BitPlane";
@@ -80,25 +80,26 @@ if ~exist(newFolder_Discret, "dir")
 end
 
 % TO DO: Image Processing Toolbox
-% discretImage = blockproc(gray_jpg, [5, 5], 'mean2(2)*ones(size(x))');
-% imwrite(discretImage, fullfile(newFolder_Discret, "discret_5_5"));
+% Применение blkproc с ядром заданного размера
+discretImage = blkproc(gray_jpg, [5, 5], 'mean2(x)*ones(size(x))');
 % imshow(discretImage);
 % pause
-% 
-% discretImage = blockproc(gray_jpg, [10, 10], 'mean2(2)*ones(size(x))');
-% imwrite(discretImage, fullfile(newFolder_Discret, "discret_10_10"));
+imwrite(discretImage, fullfile(newFolder_Discret, "discret_5_5.jpg"));
+
+discretImage = blkproc(gray_jpg, [10, 10], 'mean2(2)*ones(size(x))');
 % imshow(discretImage);
 % pause
-% 
-% discretImage = blockproc(gray_jpg, [20, 20], 'mean2(2)*ones(size(x))');
-% imwrite(discretImage, fullfile(newFolder_Discret, "discret_20_20"));
+imwrite(discretImage, fullfile(newFolder_Discret, "discret_10_10.jpg"));
+
+discretImage = blkproc(gray_jpg, [20, 20], 'mean2(2)*ones(size(x))');
 % imshow(discretImage);
 % pause
-% 
-% discretImage = blockproc(gray_jpg, [50, 50], 'mean2(2)*ones(size(x))');
-% imwrite(discretImage, fullfile(newFolder_Discret, "discret_50_50"));
+imwrite(discretImage, fullfile(newFolder_Discret, "discret_20_20.jpg"));
+
+discretImage = blkproc(gray_jpg, [50, 50], 'mean2(2)*ones(size(x))');
 % imshow(discretImage);
 % pause
+imwrite(discretImage, fullfile(newFolder_Discret, "discret_50_50.jpg"));
 
 % создадим заранее папку для квантованных полутоновых изображений по 
 % определённому уровню
@@ -108,30 +109,30 @@ if ~exist(newFolder_Quantiz, "dir")
 end
 
 % TO DO: Image Processing Toolbox
-% quantizeImage = imquantize(gray_jpg, linspace(0, 255, 4));
-% imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_4"));
-% imshow(quantizeImage);
-% pause
-% 
-% quantizeImage = imquantize(gray_jpg, linspace(0, 255, 16));
-% imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_16"));
-% imshow(quantizeImage);
-% pause
-% 
-% quantizeImage = imquantize(gray_jpg, linspace(0, 255, 32));
-% imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_32"));
-% imshow(quantizeImage);
-% pause
-% 
-% quantizeImage = imquantize(gray_jpg, linspace(0, 255, 64));
-% imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_64"));
-% imshow(quantizeImage);
-% pause
-% 
-% quantizeImage = imquantize(gray_jpg, linspace(0, 255, 128));
-% imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_128"));
-% imshow(quantizeImage);
-% pause
+quantizeImage = imquantize(gray_jpg, linspace(0, 255, 4));
+imshow(quantizeImage);
+pause
+imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_4.jpg"));
+
+quantizeImage = imquantize(gray_jpg, linspace(0, 255, 16));
+imshow(quantizeImage);
+pause
+imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_16.jpg"));
+
+quantizeImage = imquantize(gray_jpg, linspace(0, 255, 32));
+imshow(quantizeImage);
+pause
+imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_32.jpg"));
+
+quantizeImage = imquantize(gray_jpg, linspace(0, 255, 64));
+imshow(quantizeImage);
+pause
+imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_64.jpg"));
+
+quantizeImage = imquantize(gray_jpg, linspace(0, 255, 128));
+imshow(quantizeImage);
+pause
+imwrite(quantizeImage, fullfile(newFolder_Quantiz, "quantize_128.jpg"));
 
 % создадим заранее папку для 100 на 100 вырезки из полутонового изображения
 newFolder_Crop = pwd + "\Crop";
@@ -143,9 +144,10 @@ end
 topLeftRow = floor(rows / 2 - 50) + 1;
 topLeftCol = floor(cols / 2 - 50) + 1;
 croppedImage = gray_jpg(topLeftRow:topLeftRow+99, topLeftCol:topLeftCol+99);
-imwrite(croppedImage, fullfile(newFolder_Crop, "crop.jpg"));
 % imshow(croppedImage);
 % pause
+imwrite(croppedImage, fullfile(newFolder_Crop, "crop.jpg"));
+
 
 % найдём 4-ки и 8-ки соседей пикселя полутонового изображения
 N1 = zeros(4, 1);
